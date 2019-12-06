@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Balls in Rows
+Name[ru]=Шарики
+Icon=ballsinrows
+Exec=ballsinrows
+Terminal=false
+Categories=Qt;Game;LogicGame
