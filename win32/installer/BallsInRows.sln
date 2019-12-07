@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29519.87
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "BallsInRows", "BallsInRows.vdproj", "{CAEA20EB-E60A-4201-86DF-C11A0E1EE9B7}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "BallsInRows-x64", "BallsInRows-x64.vdproj", "{CAEA20EB-E60A-4201-86DF-C11A0E1EE9B7}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "BallsInRows-x86", "BallsInRows-x86.vdproj", "{F0CC948F-B595-4498-9217-BD32DF50A438}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,8 @@ Global
 		{CAEA20EB-E60A-4201-86DF-C11A0E1EE9B7}.Debug|Default.Build.0 = Debug
 		{CAEA20EB-E60A-4201-86DF-C11A0E1EE9B7}.Release|Default.ActiveCfg = Release
 		{CAEA20EB-E60A-4201-86DF-C11A0E1EE9B7}.Release|Default.Build.0 = Release
+		{F0CC948F-B595-4498-9217-BD32DF50A438}.Debug|Default.ActiveCfg = Debug
+		{F0CC948F-B595-4498-9217-BD32DF50A438}.Release|Default.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
