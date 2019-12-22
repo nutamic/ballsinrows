@@ -3,8 +3,8 @@
 #include <queue>
 #define SIDE 9
 #define SIZE 81
-#define FREE -1
-#define INVALID -2
+#define FREE '\xff'
+#define INVALID '\xfe'
 class RouteBuilder{
 	std::queue<short> visited;
 	char *const field;
