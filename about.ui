@@ -74,7 +74,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>© Maxim Glushkov 2018-2019</string>
+    <string>© Maxim Glushkov 2018-2020</string>
    </property>
   </widget>
   <widget class="QLabel" name="licenseLabel">

@@ -15,8 +15,8 @@
     </message>
     <message>
         <location filename="../about.ui" line="77"/>
-        <source>© Maxim Glushkov 2018-2019</source>
-        <translation>© Максим Глушков 2018-2019</translation>
+        <source>© Maxim Glushkov 2018-2020</source>
+        <translation>© Максим Глушков 2018-2020</translation>
     </message>
     <message>
         <location filename="../about.ui" line="90"/>
