@@ -1,6 +1,8 @@
+#include <QApplication>
 #include <QMessageBox>
 #include <QPainter>
 #include <QResizeEvent>
+#include <QShortcut>
 #include "pictures.h"
 #include "appdata.h"
 #include "resources.h"
@@ -47,6 +49,21 @@ void Pictures::changeImage(){
 		selected >>= 1;
 		picture >>= 1;
 	}
+}
+void Pictures::shortcuts_activated(){
+	QPushButton *fragment = QPushButton_ptr(QApplication::focusWidget());
+	if(fragment < fragments) return;
+	QPushButton *const endFragments = fragments + FRAGMENTS;
+	if(fragment >= endFragments) return;
+	QShortcut *const shortcut = QShortcut_ptr(sender());
+	if(shortcut == upShortcut){
+		fragment -= FRAGMENTS_X;
+		if(fragment < fragments) return;
+	}else{
+		fragment += FRAGMENTS_X;
+		if(fragment >= endFragments) return;
+	}
+	fragment->setFocus();
 }
 void Pictures::fragments_clicked(bool checked){
 	QPushButton *const fragment = QPushButton_ptr(sender());
@@ -146,6 +163,10 @@ void Pictures::resizeEvent(QResizeEvent *event){
 Pictures::Pictures(QWidget *parent):
 	QDialog(parent), index(0), pictures{}, selected(0){
 	ui.setupUi(this);
+	upShortcut = new QShortcut(Qt::Key_Up, this);
+	downShortcut = new QShortcut(Qt::Key_Down, this);
+	connect(upShortcut, &QShortcut::activated, this, &Pictures::shortcuts_activated);
+	connect(downShortcut, &QShortcut::activated, this, &Pictures::shortcuts_activated);
 	Bonuses bonuses;
 	available = bonuses.count();
 	ui.buyButton->setText(tr("%n &bonus(es) available", Q_NULLPTR, available));
@@ -163,5 +184,7 @@ Pictures::Pictures(QWidget *parent):
 	loadImage();
 }
 Pictures::~Pictures(){
+	delete upShortcut;
+	delete downShortcut;
 	delete[] fragments;
 }

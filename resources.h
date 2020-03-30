@@ -8,4 +8,7 @@ typedef QPushButton *QPushButton_ptr;
 #ifdef QLINEEDIT_H
 typedef QLineEdit *QLineEdit_ptr;
 #endif
+#ifdef QSHORTCUT_H
+typedef QShortcut *QShortcut_ptr;
+#endif
 #endif

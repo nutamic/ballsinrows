@@ -3,8 +3,10 @@
 #include <QPushButton>
 #include "metrics.h"
 class QFile;
+class QShortcut;
 class Field: public QObject{
 	Q_OBJECT
+	QShortcut *upShortcut, *downShortcut;
 	short available, selected;
 	char *colors;
 	QPushButton *balls;
@@ -20,6 +22,7 @@ class Field: public QObject{
 	bool stripLinesAround(short index);
 	void removeLine(char *first, char *last, short step, short length);
 private slots:
+	void shortcuts_activated();
 	void balls_clicked(bool checked);
 public:
 	explicit Field(QWidget *centralWidget);

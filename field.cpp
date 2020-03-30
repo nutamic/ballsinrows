@@ -1,9 +1,8 @@
-#ifndef __linux__
 #include <QApplication>
-#endif
 #include <QFile>
 #include <QMessageBox>
 #include <QSaveFile>
+#include <QShortcut>
 #include "field.h"
 #include "appdata.h"
 #include "resources.h"
@@ -186,6 +185,21 @@ void Field::removeLine(char *first, char *last, short step, short length){
 	score += length * (length + 1) / 2;
 	emit scoreChanged();
 }
+void Field::shortcuts_activated(){
+	QPushButton *ball = QPushButton_ptr(QApplication::focusWidget());
+	if(ball < balls) return;
+	QPushButton *const endBalls = balls + SIZE;
+	if(ball >= endBalls) return;
+	QShortcut *const shortcut = QShortcut_ptr(sender());
+	if(shortcut == upShortcut){
+		ball -= SIDE;
+		if(ball < balls) return;
+	}else{
+		ball += SIDE;
+		if(ball >= endBalls) return;
+	}
+	ball->setFocus();
+}
 void Field::balls_clicked([[maybe_unused]] bool checked){
 	QPushButton *const ball = QPushButton_ptr(sender());
 	const short released = short(ball - balls);
@@ -219,13 +233,14 @@ void Field::balls_clicked([[maybe_unused]] bool checked){
 	}
 }
 Field::Field(QWidget *centralWidget){
+	upShortcut = new QShortcut(Qt::Key_Up, centralWidget);
+	downShortcut = new QShortcut(Qt::Key_Down, centralWidget);
+	connect(upShortcut, &QShortcut::activated, this, &Field::shortcuts_activated);
+	connect(downShortcut, &QShortcut::activated, this, &Field::shortcuts_activated);
 	colors = new char[SIZE];
 	balls = new QPushButton[SIZE];
 	QPushButton *endBalls = balls + SIZE;
-	for(QPushButton *ball = balls; ball != endBalls; ball++){
-		ball->setParent(centralWidget);
-		ball->setFocusPolicy(Qt::NoFocus);
-	}
+	for(QPushButton *ball = balls; ball != endBalls; ball++) ball->setParent(centralWidget);
 	newColors = new char[BALLS_PER_STEP];
 	newBalls = new QPushButton[BALLS_PER_STEP];
 	endBalls = newBalls + BALLS_PER_STEP;
@@ -257,6 +272,8 @@ Field::Field(QWidget *centralWidget){
 #endif
 }
 Field::~Field(){
+	delete upShortcut;
+	delete downShortcut;
 	delete[] colors;
 	delete[] balls;
 	delete[] newColors;
