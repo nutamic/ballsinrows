@@ -2,12 +2,13 @@
 #define PICTURES_H
 #include <QDialog>
 #include "ui_pictures.h"
+#include "arrowshortcuts.h"
 #include "bonuses.h"
 class QShortcut;
 class Pictures: public QDialog{
 	Q_OBJECT
 	Ui::Pictures ui;
-	QShortcut *upShortcut, *downShortcut;
+	ArrowShortcuts *arrowShortcuts;
 	QPushButton *fragments;
 	QImage image;
 	int available;
@@ -18,7 +19,7 @@ class Pictures: public QDialog{
 	void loadImage();
 	void changeImage();
 private slots:
-	void shortcuts_activated();
+	void arrowShortcuts_activated(ArrowShortcuts::Key key);
 	void fragments_clicked(bool checked);
 	void on_prevButton_released();
 	void on_nextButton_released();

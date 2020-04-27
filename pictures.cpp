@@ -2,7 +2,6 @@
 #include <QMessageBox>
 #include <QPainter>
 #include <QResizeEvent>
-#include <QShortcut>
 #include "pictures.h"
 #include "appdata.h"
 #include "resources.h"
@@ -50,18 +49,38 @@ void Pictures::changeImage(){
 		picture >>= 1;
 	}
 }
-void Pictures::shortcuts_activated(){
+void Pictures::arrowShortcuts_activated(ArrowShortcuts::Key key){
 	QPushButton *fragment = QPushButton_ptr(QApplication::focusWidget());
 	if(fragment < fragments) return;
 	QPushButton *const endFragments = fragments + FRAGMENTS;
 	if(fragment >= endFragments) return;
-	QShortcut *const shortcut = QShortcut_ptr(sender());
-	if(shortcut == upShortcut){
-		fragment -= FRAGMENTS_X;
-		if(fragment < fragments) return;
-	}else{
-		fragment += FRAGMENTS_X;
-		if(fragment >= endFragments) return;
+	switch(key){
+	case ArrowShortcuts::Up:
+		do{
+			fragment -= FRAGMENTS_X;
+			if(fragment < fragments) return;
+		}while(!fragment->isVisible());
+		break;
+	case ArrowShortcuts::Down:
+		do{
+			fragment += FRAGMENTS_X;
+			if(fragment >= endFragments) return;
+		}while(!fragment->isVisible());
+		break;
+	case ArrowShortcuts::Left:
+		char x;
+		x = (fragment - fragments) % FRAGMENTS_X;
+		do{
+			if(!x--) return;
+			fragment--;
+		}while(!fragment->isVisible());
+		break;
+	case ArrowShortcuts::Right:
+		x = (fragment - fragments) % FRAGMENTS_X;
+		do{
+			fragment++;
+			if(++x == FRAGMENTS_X) return;
+		}while(!fragment->isVisible());
 	}
 	fragment->setFocus();
 }
@@ -163,10 +182,8 @@ void Pictures::resizeEvent(QResizeEvent *event){
 Pictures::Pictures(QWidget *parent):
 	QDialog(parent), index(0), pictures{}, selected(0){
 	ui.setupUi(this);
-	upShortcut = new QShortcut(Qt::Key_Up, this);
-	downShortcut = new QShortcut(Qt::Key_Down, this);
-	connect(upShortcut, &QShortcut::activated, this, &Pictures::shortcuts_activated);
-	connect(downShortcut, &QShortcut::activated, this, &Pictures::shortcuts_activated);
+	arrowShortcuts = new ArrowShortcuts(this);
+	connect(arrowShortcuts, &ArrowShortcuts::activated, this, &Pictures::arrowShortcuts_activated);
 	Bonuses bonuses;
 	available = bonuses.count();
 	ui.buyButton->setText(tr("%n &bonus(es) available", Q_NULLPTR, available));
@@ -184,7 +201,6 @@ Pictures::Pictures(QWidget *parent):
 	loadImage();
 }
 Pictures::~Pictures(){
-	delete upShortcut;
-	delete downShortcut;
+	delete arrowShortcuts;
 	delete[] fragments;
 }

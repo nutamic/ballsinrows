@@ -2,7 +2,6 @@
 #include <QFile>
 #include <QMessageBox>
 #include <QSaveFile>
-#include <QShortcut>
 #include "field.h"
 #include "appdata.h"
 #include "resources.h"
@@ -185,18 +184,30 @@ void Field::removeLine(char *first, char *last, short step, short length){
 	score += length * (length + 1) / 2;
 	emit scoreChanged();
 }
-void Field::shortcuts_activated(){
+void Field::arrowShortcuts_activated(ArrowShortcuts::Key key){
 	QPushButton *ball = QPushButton_ptr(QApplication::focusWidget());
 	if(ball < balls) return;
 	QPushButton *const endBalls = balls + SIZE;
 	if(ball >= endBalls) return;
-	QShortcut *const shortcut = QShortcut_ptr(sender());
-	if(shortcut == upShortcut){
+	switch(key){
+	case ArrowShortcuts::Up:
 		ball -= SIDE;
 		if(ball < balls) return;
-	}else{
+		break;
+	case ArrowShortcuts::Down:
 		ball += SIDE;
 		if(ball >= endBalls) return;
+		break;
+	case ArrowShortcuts::Left:
+		char x;
+		x = (ball - balls) % SIDE;
+		if(!x) return;
+		ball--;
+		break;
+	case ArrowShortcuts::Right:
+		ball++;
+		x = (ball - balls) % SIDE;
+		if(!x) return;
 	}
 	ball->setFocus();
 }
@@ -233,10 +244,8 @@ void Field::balls_clicked([[maybe_unused]] bool checked){
 	}
 }
 Field::Field(QWidget *centralWidget){
-	upShortcut = new QShortcut(Qt::Key_Up, centralWidget);
-	downShortcut = new QShortcut(Qt::Key_Down, centralWidget);
-	connect(upShortcut, &QShortcut::activated, this, &Field::shortcuts_activated);
-	connect(downShortcut, &QShortcut::activated, this, &Field::shortcuts_activated);
+	arrowShortcuts = new ArrowShortcuts(centralWidget);
+	connect(arrowShortcuts, &ArrowShortcuts::activated, this, &Field::arrowShortcuts_activated);
 	colors = new char[SIZE];
 	balls = new QPushButton[SIZE];
 	QPushButton *endBalls = balls + SIZE;
@@ -272,8 +281,7 @@ Field::Field(QWidget *centralWidget){
 #endif
 }
 Field::~Field(){
-	delete upShortcut;
-	delete downShortcut;
+	delete arrowShortcuts;
 	delete[] colors;
 	delete[] balls;
 	delete[] newColors;

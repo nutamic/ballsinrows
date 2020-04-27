@@ -1,12 +1,13 @@
 #ifndef FIELD_H
 #define FIELD_H
 #include <QPushButton>
+#include "arrowshortcuts.h"
 #include "metrics.h"
 class QFile;
 class QShortcut;
 class Field: public QObject{
 	Q_OBJECT
-	QShortcut *upShortcut, *downShortcut;
+	ArrowShortcuts *arrowShortcuts;
 	short available, selected;
 	char *colors;
 	QPushButton *balls;
@@ -22,7 +23,7 @@ class Field: public QObject{
 	bool stripLinesAround(short index);
 	void removeLine(char *first, char *last, short step, short length);
 private slots:
-	void shortcuts_activated();
+	void arrowShortcuts_activated(ArrowShortcuts::Key key);
 	void balls_clicked(bool checked);
 public:
 	explicit Field(QWidget *centralWidget);
