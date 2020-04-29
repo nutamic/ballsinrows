@@ -51,7 +51,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Balls in Rows 1.0</string>
+    <string>Balls in Rows 1.1</string>
    </property>
   </widget>
   <widget class="QLabel" name="iconLabel">

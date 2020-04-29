@@ -4,7 +4,7 @@
 <context>
     <name>BallsInRows</name>
     <message numerus="yes">
-        <location filename="../balls.cpp" line="131"/>
+        <location filename="../ballsinrows.cpp" line="182"/>
         <source>Game over.
 %n bonus(es) received.</source>
         <translation>
@@ -18,8 +18,8 @@
 <context>
     <name>Pictures</name>
     <message numerus="yes">
-        <location filename="../pictures.cpp" line="85"/>
-        <location filename="../pictures.cpp" line="134"/>
+        <location filename="../pictures.cpp" line="138"/>
+        <location filename="../pictures.cpp" line="189"/>
         <source>%n &amp;bonus(es) available</source>
         <translation>
             <numerusform>%n &amp;bonus available</numerusform>

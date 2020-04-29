@@ -10,8 +10,8 @@
     </message>
     <message>
         <location filename="../about.ui" line="54"/>
-        <source>Balls in Rows 1.0</source>
-        <translation>Шарики 1.0</translation>
+        <source>Balls in Rows 1.1</source>
+        <translation>Шарики 1.1</translation>
     </message>
     <message>
         <location filename="../about.ui" line="77"/>
@@ -218,7 +218,7 @@ Do you want to resume it?</source>
 <context>
     <name>Field</name>
     <message>
-        <location filename="../field.cpp" line="251"/>
+        <location filename="../field.cpp" line="275"/>
         <source>Balls in Rows</source>
         <translation>Шарики</translation>
     </message>
@@ -311,36 +311,36 @@ Do you want to resume it?</source>
     <name>Pictures</name>
     <message>
         <location filename="../pictures.ui" line="20"/>
-        <location filename="../pictures.cpp" line="31"/>
         <location filename="../pictures.cpp" line="32"/>
-        <location filename="../pictures.cpp" line="92"/>
+        <location filename="../pictures.cpp" line="33"/>
+        <location filename="../pictures.cpp" line="128"/>
         <source>Pictures</source>
         <translation>Картинки</translation>
     </message>
     <message>
-        <location filename="../pictures.cpp" line="31"/>
+        <location filename="../pictures.cpp" line="32"/>
         <source>Cannot find an image.
 Reinstall the application.</source>
         <translation>Невозможно найти изображение.
 Переустановите приложение.</translation>
     </message>
     <message>
-        <location filename="../pictures.cpp" line="32"/>
+        <location filename="../pictures.cpp" line="33"/>
         <source>Cannot load an image from &quot;%1&quot;.
 If it is your file, fix or delete it. If not, reinstall the application.</source>
         <translation>Невозможно загрузить изображение из &quot;%1&quot;.
 Если это ваш файл, исправьте или удалите его. Если нет, переустановите приложение.</translation>
     </message>
     <message>
-        <location filename="../pictures.cpp" line="92"/>
+        <location filename="../pictures.cpp" line="128"/>
         <source>Cannot buy pictures.
 Check whether you can write to &quot;%1&quot; and parent directory.</source>
         <translation>Невозможно купить картинки.
 Проверьте возможность записи в &quot;%1&quot; и родительский каталог.</translation>
     </message>
     <message numerus="yes">
-        <location filename="../pictures.cpp" line="102"/>
-        <location filename="../pictures.cpp" line="151"/>
+        <location filename="../pictures.cpp" line="138"/>
+        <location filename="../pictures.cpp" line="189"/>
         <source>%n &amp;bonus(es) available</source>
         <translation>
             <numerusform>Доступен %n &amp;бонус</numerusform>
@@ -367,7 +367,7 @@ Check whether you can write to &quot;%1&quot; and parent directory.</source>
         <translation>Дата</translation>
     </message>
     <message>
-        <location filename="../field.cpp" line="251"/>
+        <location filename="../field.cpp" line="275"/>
         <source>The file &quot;%1&quot; has invalid content.
 If it is your file, fix or delete it. If not, reinstall the application.</source>
         <translation>Файл &quot;%1&quot; имеет неверный формат.
