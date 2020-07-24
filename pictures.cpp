@@ -18,11 +18,11 @@ short Pictures::firstFragmentSize(const short width, const short height, short &
 	const short verticalSize = (height - 2 * MARGIN - BUTTONS_OFFSET) / FRAGMENTS_Y;
 	if(verticalSize < fragmentSize){
 		fragmentSize = verticalSize;
-		x = (width - fragmentSize * 8) / 2;
+		x = (width - fragmentSize * FRAGMENTS_X) / 2;
 		y = MARGIN;
 	}else{
 		x = MARGIN;
-		y = (height - fragmentSize * 6 - BUTTONS_OFFSET) / 2;
+		y = (height - fragmentSize * FRAGMENTS_Y - BUTTONS_OFFSET) / 2;
 	}
 	return fragmentSize;
 }
