@@ -23,7 +23,7 @@ void Field::setup(){
 		ball->setCheckable(true);
 	}
 	available = SIZE;
-	selected = FREE;
+	srcIndex = FREE;
 	emit stateChanged();
 }
 void Field::reset(){
@@ -34,7 +34,7 @@ void Field::reset(){
 	endBalls = newBalls + BALLS_PER_STEP;
 	for(QPushButton *ball = newBalls; ball != endBalls; ball++) ball->setIcon(nullIcon);
 	available = SIZE;
-	selected = FREE;
+	srcIndex = FREE;
 	score = 0;
 	emit scoreChanged();
 }
@@ -51,6 +51,10 @@ void Field::clear(){
 	score = 0;
 	emit scoreChanged();
 	emit stateChanged();
+}
+void Field::setColor(QPushButton *ball, char *color, char value){
+	*color = value;
+	ball->setIcon(icons[short(value)]);
 }
 char *Field::getFreeLocation(ushort random){
 	random %= available--;
@@ -70,20 +74,29 @@ void Field::generateColors(){
 	char *newColor = newColors;
 	char *const endColors = newColors + BALLS_PER_STEP;
 	while(newColor != endColors){
-		const char color = random % COLORS;
+		setColor(ball++, newColor++, random % COLORS);
 		random /= COLORS;
-		*newColor++ = color;
-		ball++->setIcon(icons[short(color)]);
 	}
 }
-void Field::moveTo(QPushButton *ball, short index){
-	colors[index] = colors[selected];
-	colors[selected] = FREE;
-	ball->setIcon(icons[short(colors[index])]);
-	QPushButton *const srcBall = balls + selected;
+void Field::performStep(QPushButton *dstBall, short dstIndex){
+	setColor(dstBall, colors + dstIndex, colors[srcIndex]);
+	colors[srcIndex] = FREE;
+	QPushButton *const srcBall = balls + srcIndex;
 	srcBall->setIcon(QIcon());
 	srcBall->setChecked(false);
-	selected = FREE;
+	srcIndex = FREE;
+	if(stripLinesAround(dstIndex)) return;
+	if(available <= BALLS_PER_STEP){
+		stopGame();
+		return;
+	}
+	for(short newIndex = 0; newIndex != BALLS_PER_STEP; newIndex++){
+		char *const location = getFreeLocation(ushort(rand()));
+		const char index = location - colors;
+		setColor(balls + index, location, newColors[newIndex]);
+		stripLinesAround(index);
+	}
+	generateColors();
 }
 bool Field::stripLinesAround(short index){
 	char *const base = colors + index;
@@ -212,34 +225,18 @@ void Field::arrowShortcuts_activated(ArrowShortcuts::Key key){
 	ball->setFocus();
 }
 void Field::balls_clicked([[maybe_unused]] bool checked){
-	QPushButton *const ball = QPushButton_ptr(sender());
-	const short released = short(ball - balls);
-	if(colors[released] == FREE){
-		ball->setChecked(false);
-		if(selected == FREE) return;
-		if(!RouteBuilder(selected, released, colors).build()) return;
-		moveTo(ball, released);
-		if(!stripLinesAround(released)){
-			if(available <= BALLS_PER_STEP){
-				stopGame();
-				return;
-			}
-			char *const endColors = newColors + BALLS_PER_STEP;
-			for(char *newColor = newColors; newColor != endColors; newColor++){
-				char *const location = getFreeLocation(ushort(rand()));
-				const char color = *newColor;
-				*location = color;
-				const short index = short(location - colors);
-				balls[index].setIcon(icons[short(color)]);
-				stripLinesAround(index);
-			}
-			generateColors();
+	QPushButton *const dstBall = QPushButton_ptr(sender());
+	const short dstIndex = short(dstBall - balls);
+	if(colors[dstIndex] == FREE){
+		dstBall->setChecked(false);
+		if(srcIndex != FREE){
+			if(RouteBuilder(srcIndex, dstIndex, colors).build()) performStep(dstBall, dstIndex);
 		}
 	}else{
-		if(released == selected) selected = FREE;
+		if(srcIndex == dstIndex) srcIndex = FREE;
 		else{
-			if(selected != FREE) balls[selected].setChecked(false);
-			selected = released;
+			if(srcIndex != FREE) balls[srcIndex].setChecked(false);
+			srcIndex = dstIndex;
 		}
 	}
 }
@@ -325,9 +322,7 @@ void Field::newGame(bool playing){
 	for(short i = START_BALLS; i; i--){
 		ushort random = ushort(rand());
 		char *const location = getFreeLocation(random / COLORS);
-		random %= COLORS;
-		*location = char(random);
-		balls[location - colors].setIcon(icons[random]);
+		setColor(balls + (location - colors), location, random % COLORS);
 	}
 	generateColors();
 }
@@ -340,14 +335,12 @@ void Field::openGame(QFile *file, bool playing){
 	file->read(colors, SIZE);
 	file->close();
 	emit scoreChanged();
-	char *endColors = newColors + BALLS_PER_STEP;
-	for(char *color = newColors; color != endColors; color++) newBalls[color - newColors].setIcon(icons[short(*color)]);
-	endColors = colors + SIZE;
-	for(char *color = colors; color != endColors; color++){
-		const short colorIndex = *color;
-		if(colorIndex == FREE) continue;
+	for(short index = 0; index != BALLS_PER_STEP; index++) newBalls[index].setIcon(icons[short(newColors[index])]);
+	for(short index = 0; index != SIZE; index++){
+		const short color = colors[index];
+		if(color == FREE) continue;
+		balls[index].setIcon(icons[color]);
 		available--;
-		balls[color - colors].setIcon(icons[colorIndex]);
 	}
 }
 bool Field::saveGame(const QString &fileName, bool cleanup){

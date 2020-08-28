@@ -8,7 +8,7 @@ class QShortcut;
 class Field: public QObject{
 	Q_OBJECT
 	ArrowShortcuts *arrowShortcuts;
-	short available, selected;
+	short available, srcIndex;
 	char *colors;
 	QPushButton *balls;
 	char *newColors;
@@ -17,9 +17,10 @@ class Field: public QObject{
 	void setup();
 	void reset();
 	void clear();
+	void setColor(QPushButton *ball, char *color, char value);
 	char *getFreeLocation(ushort random);
 	void generateColors();
-	void moveTo(QPushButton *ball, short index);
+	void performStep(QPushButton *dstBall, short dstIndex);
 	bool stripLinesAround(short index);
 	void removeLine(char *first, char *last, short step, short length);
 private slots:
