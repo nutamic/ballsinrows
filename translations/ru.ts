@@ -15,8 +15,8 @@
     </message>
     <message>
         <location filename="../about.ui" line="77"/>
-        <source>© Maxim Glushkov 2018-2020</source>
-        <translation>© Максим Глушков 2018-2020</translation>
+        <source>© Maxim Glushkov 2018-2021</source>
+        <translation>© Максим Глушков 2018-2021</translation>
     </message>
     <message>
         <location filename="../about.ui" line="90"/>
@@ -218,7 +218,7 @@ Do you want to resume it?</source>
 <context>
     <name>Field</name>
     <message>
-        <location filename="../field.cpp" line="275"/>
+        <location filename="../field.cpp" line="272"/>
         <source>Balls in Rows</source>
         <translation>Шарики</translation>
     </message>
@@ -367,7 +367,7 @@ Check whether you can write to &quot;%1&quot; and parent directory.</source>
         <translation>Дата</translation>
     </message>
     <message>
-        <location filename="../field.cpp" line="275"/>
+        <location filename="../field.cpp" line="272"/>
         <source>The file &quot;%1&quot; has invalid content.
 If it is your file, fix or delete it. If not, reinstall the application.</source>
         <translation>Файл &quot;%1&quot; имеет неверный формат.

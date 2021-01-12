@@ -29,6 +29,6 @@ win32{
 	RC_ICONS = win32/ballsinrows.ico
 	QMAKE_TARGET_PRODUCT = "Balls in Rows"
 	QMAKE_TARGET_COMPANY = "Maxim Glushkov"
-	QMAKE_TARGET_COPYRIGHT = "Copyright (C) Maxim Glushkov 2018-2020"
+	QMAKE_TARGET_COPYRIGHT = "Copyright (C) Maxim Glushkov 2018-2021"
 	target.path = win32/installer/data
 }
