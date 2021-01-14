@@ -5,8 +5,6 @@
 class About: public QDialog{
 	Q_OBJECT
 	Ui::About ui;
-private slots:
-	void on_licenseLabel_linkActivated(const QString &link);
 public:
 	explicit About(QWidget *parent);
 };

@@ -23,6 +23,23 @@
         <source>License: &lt;a href=&quot;https://www.gnu.org/licenses/gpl-3.0.html&quot;&gt;GNU General Public License, version 3 or later&lt;/a&gt;.</source>
         <translation>Лицензия: &lt;a href=&quot;https://www.gnu.org/licenses/gpl-3.0.html&quot;&gt;GNU General Public License, версии 3 или более поздней&lt;/a&gt;.</translation>
     </message>
+    <message>
+        <location filename="../about.ui" line="112"/>
+        <source>Libraries:
+&lt;ul style=&quot;margin: 0 -20px;&quot;&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.qt.io/&quot;&gt;Qt&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.libarchive.org/&quot;&gt;libarchive&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://zlib.net/&quot;&gt;zlib&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://tukaani.org/xz/&quot;&gt;xz-utils&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</source>
+        <translation>Библиотеки:
+&lt;ul style=&quot;margin: 0 -20px;&quot;&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.qt.io/&quot;&gt;Qt&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.libarchive.org/&quot;&gt;libarchive&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://zlib.net/&quot;&gt;zlib&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://tukaani.org/xz/&quot;&gt;xz-utils&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</translation>
+    </message>
 </context>
 <context>
     <name>BallsInRows</name>
