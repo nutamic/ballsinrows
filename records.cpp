@@ -89,6 +89,6 @@ void Records::fillTable(QTableWidget *table){
 }
 bool verifyFile(QXmlStreamReader *reader){
 	if(!reader->readNextStartElement()) return false;
-	if(reader->name() != tagHighscores) return false;
+	if(reader->name().compare(QString(tagHighscores)) != 0) return false;
 	return true;
 }
